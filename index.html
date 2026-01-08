@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Oficina e Estrada - Edição Especial</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="index.js" defer></script>
+  </head>
+  <body>
+
+    <header>
+        <button class="restart-btn-small" onclick="restartLevel()" title="Reiniciar Fase">↺</button>
+
+        <!-- Menu de Fases (Botões Horizontais) -->
+        <div class="level-selector-container" id="level-menu">
+            <!-- Botões inseridos via JS -->
+        </div>
+    </header>
+
+    <div class="game-board" id="game-board">
+        <!-- Elementos serão injetados aqui via JS -->
+    </div>
+
+    <div class="victory-modal" id="victoryModal">
+        <canvas id="confetti-canvas"></canvas>
+        <div class="victory-content">
+            <span class="victory-icon">👏</span>
+            <button class="action-btn" id="nextLevelBtn" onclick="nextLevel()">➜</button>
+        </div>
+    </div>
+
+  </body>
+</html>

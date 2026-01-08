@@ -1,9 +1,10 @@
 {
-  "name": "${PROJECT_NAME}",
+  "name": "strokegame",
   "version": "1.0.0",
-  "description": "",
+  "description": "Oficina e Estrada - Edição Especial",
   "main": "index.js",
   "scripts": {
+    "start": "npx serve .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "private": true

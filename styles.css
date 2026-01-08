@@ -1,0 +1,283 @@
+/* --- ESTILOS GERAIS --- */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+}
+
+/* --- HEADER --- */
+header {
+  background-color: #2c3e50;
+  color: white;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 50;
+  height: 70px; /* Altura para caber os botões */
+  flex-shrink: 0;
+  gap: 10px;
+}
+
+.restart-btn-small {
+  background: #e74c3c; /* Vermelho para destaque de ação */
+  border: 2px solid #c0392b;
+  color: white;
+  font-size: 24px;
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 0 #962d22;
+}
+.restart-btn-small:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+
+/* Menu de Fases (Scroll Horizontal) */
+.level-selector-container {
+  flex: 1;
+  display: flex;
+  overflow-x: auto; /* Permite rolar para o lado */
+  gap: 8px;
+  padding: 0 5px;
+  -webkit-overflow-scrolling: touch; /* Rolagem suave no iOS */
+  scrollbar-width: none; /* Esconde barra no Firefox */
+}
+
+.level-selector-container::-webkit-scrollbar {
+  display: none; /* Esconde barra no Chrome/Safari */
+}
+
+.level-btn {
+  background-color: #ecf0f1;
+  border: none;
+  border-radius: 10px;
+  min-width: 60px; /* Largura fixa para toque fácil */
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #2c3e50;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 3px 0 #bdc3c7;
+}
+
+.level-btn span.emoji {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.level-btn.active {
+  background-color: #f1c40f;
+  color: #2c3e50;
+  box-shadow: 0 3px 0 #d4ac0d;
+  transform: scale(1.05);
+  border: 2px solid white;
+}
+
+.level-btn:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+/* --- ÁREA DO JOGO --- */
+.game-board {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: radial-gradient(circle, #ffffff 0%, #dde1e7 100%);
+}
+
+#level-title {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 10;
+  pointer-events: none;
+  text-shadow: 0 2px 4px rgba(255,255,255,0.8);
+}
+
+/* --- ZONAS DE DESTINO (ALVOS) --- */
+.drop-zone-wrapper {
+  position: absolute;
+  transition: all 0.5s ease;
+}
+
+.drop-zone {
+  width: 90px;
+  height: 90px;
+  border: 3px dashed #95a5a6;
+  border-radius: 15px;
+  background-color: #ecf0f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.drop-zone-large {
+  width: 140px;
+  height: 140px;
+  border: 4px solid #95a5a6;
+  border-radius: 20px;
+  background-color: #ecf0f1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.drop-zone-basket {
+  width: 180px;
+  height: 90px;
+  border: none;
+  background-color: #d35400;
+  border-radius: 0 0 50px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 40px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.drop-zone-label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 5px;
+  color: #555;
+  text-align: center;
+  background: rgba(255,255,255,0.8);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* Estados Visuais */
+.drop-zone.hovered, .drop-zone-large.hovered, .drop-zone-basket.hovered {
+  background-color: #bdc3c7;
+  transform: scale(1.1);
+  border-color: #2c3e50;
+  z-index: 20;
+}
+
+.drop-zone.correct, .drop-zone-large.correct, .drop-zone-basket.correct {
+  background-color: #a3e4d7;
+  border-color: #27ae60;
+  animation: pulse 0.4s;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.shadow-icon {
+  opacity: 0.2;
+  font-size: 50px;
+  filter: grayscale(100%);
+  pointer-events: none;
+}
+
+.large-icon {
+  font-size: 60px;
+  opacity: 0.9;
+}
+
+/* --- PEÇAS ARRASTÁVEIS --- */
+.draggable {
+  width: 80px;
+  height: 80px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 45px;
+  cursor: grab;
+  position: absolute;
+  touch-action: none;
+  z-index: 100;
+  border: 3px solid white;
+  transition: transform 0.1s;
+}
+
+.draggable:active {
+  cursor: grabbing;
+  transform: scale(1.2);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+  border-color: #f1c40f;
+  z-index: 1000;
+}
+
+.consumed-item {
+  transform: scale(0);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.fixed-completed-item {
+  z-index: 40;
+  pointer-events: none;
+  border-color: #27ae60;
+  background-color: #eafaf1;
+}
+
+/* --- MODAL --- */
+.victory-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.victory-modal.visible { visibility: visible; opacity: 1; }
+.victory-content {
+  background: white; padding: 30px; border-radius: 20px; text-align: center;
+  width: 85%; max-width: 400px; box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
+}
+.victory-icon { font-size: 80px; margin-bottom: 20px; display: block; }
+button.action-btn {
+  background-color: #27ae60; color: white; border: none; padding: 15px 40px;
+  font-size: 1.5rem; border-radius: 50px; cursor: pointer; font-weight: bold;
+  box-shadow: 0 6px 0 #1e8449; margin-top: 20px; width: 100%;
+}
+button.action-btn:active { transform: translateY(6px); box-shadow: none; }
+#confetti-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+
